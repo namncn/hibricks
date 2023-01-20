@@ -1,0 +1,55 @@
+/**
+* Theme Name: HiBricks
+* Theme URI: https://namncn.com/hibricks/
+* Description: A nice child theme for bricksbuilder theme.
+* Author: Pixel+
+* Author URI: https://namncn.com
+* Version: 1.0.0
+* Tags: bricks, bricksbuilder, childtheme.
+* Text Domain: hibricks
+* License: GNU General Public License v3
+* License URI: http://www.gnu.org/licenses/gpl-3.0.html
+* Template: bricks
+*/
+
+#bricks-preloader .title,
+#bricks-preloader .sub-title,
+#bricks-preloader .logo {
+	display: none !important;
+}
+
+body.bricks-is-frontend :focus {
+	outline: none !important;
+}
+
+.bricks-search-overlay .close {
+	font-size: 30px !important;
+}
+
+.backtotop {
+	width: 40px;
+	height: 40px;
+	background-color: #222;
+	text-align: center;
+	padding: 10px;
+	line-height: 20px;
+	position: fixed;
+	bottom: 100px;
+	right: 1.9%;
+	cursor: pointer;
+	color: #fff;
+	font-size: 20px;
+	z-index: 99;
+	border-radius: 50%;
+	transition: all .3s ease-in-out;
+	align-items: center;
+	justify-content: center;
+	display: flex;
+	opacity: 0;
+	visibility: hidden;
+}
+
+.backtotop.active {
+	opacity: 1;
+	visibility: visible;
+}

@@ -1,1 +1,2 @@
-# HiBricks Theme - Smart Child Theme for Bricksbuilder
+# HiBricks Theme
+Smart starter child theme for Bricks - bricksbuilder.io

@@ -32,11 +32,16 @@ class Hooks {
 		add_filter( 'excerpt_more', array( $this, 'excerpt_more' ) );
 		add_action( 'wp_footer', array( $this, 'supports_js' ) );
 		remove_action( 'wp_body_open', 'wp_global_styles_render_svg_filters' );
-		add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
 		add_action( 'admin_menu', array( $this, 'pixelplus_admin_menu' ), 9999 );
 		add_filter( 'gettext', array( $this, 'gettext' ), 9999, 3 );
 		add_filter( 'init', array( $this, 'bricks_custom_elements' ), 11 );
 		add_filter( 'display_post_states', array( $this, 'add_post_state' ), 9999, 2 );
+		add_filter( 'wc_add_to_cart_message_html', '__return_false' );
+		add_filter( 'bricks/code/echo_function_names', function() {
+            return [
+                '@^hibricks_',
+            ];
+        } );
 	}
 
 	public function add_post_state( $post_states, $post ) {
@@ -56,7 +61,7 @@ class Hooks {
 	}
 
 	public function gettext( $translated_text, $text, $domain ) {
-		if ( 'bricks' == $domain ) {
+		if ( 'bricks' == $domain || 'hibricks' == $domain ) {
 			$translated_text = str_ireplace( 'Edit with Bricks', 'Live Edit', $translated_text );
 		}
 
@@ -79,22 +84,6 @@ class Hooks {
 
 	public function admin_screen_getting_started() {
 		require_once 'admin/admin-screen-getting-started.php';
-	}
-
-	public function wp_enqueue_scripts() {
-		wp_enqueue_style( 'hibricks', get_stylesheet_uri(), array( 'bricks-frontend' ), time() );
-		wp_enqueue_script( 'hibricks', get_theme_file_uri( 'assets/js/frontend.js' ), array( 'jquery' ), time(), true );
-
-		wp_script_add_data( 'hibricks', 'async', true );
-
-		wp_localize_script(
-			'hibricks',
-			'hibricks',
-			array(
-				'ajax_url' => admin_url( 'admin-ajax.php' ),
-				'_nonce'   => wp_create_nonce( 'hibricks_nonce' ),
-			)
-		);
 	}
 
 	/**
@@ -156,10 +145,15 @@ class Hooks {
 	public function skip_link_focus_fix() {
 		// The following is minified via `terser --compress --mangle -- js/skip-link-focus-fix.js`.
 		?>
-		<script>
-		/(trident|msie)/i.test(navigator.userAgent)&&document.getElementById&&window.addEventListener&&window.addEventListener("hashchange",function(){var t,e=location.hash.substring(1);/^[A-z0-9_-]+$/.test(e)&&(t=document.getElementById(e))&&(/^(?:a|select|input|button|textarea)$/i.test(t.tagName)||(t.tabIndex=-1),t.focus())},!1);
-		</script>
-		<?php
+<script>
+/(trident|msie)/i.test(navigator.userAgent) && document.getElementById && window.addEventListener && window
+    .addEventListener("hashchange", function() {
+        var t, e = location.hash.substring(1);
+        /^[A-z0-9_-]+$/.test(e) && (t = document.getElementById(e)) && (/^(?:a|select|input|button|textarea)$/i
+            .test(t.tagName) || (t.tabIndex = -1), t.focus())
+    }, !1);
+</script>
+<?php
 	}
 
 	/**

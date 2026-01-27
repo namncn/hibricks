@@ -42,6 +42,7 @@ class Theme {
 		new Register\Taxonomies();
 		new Register\Ajaxes();
 		new Integrations\ACF\ACF();
+		new Admin\Enqueue();
 	}
 
 	/**

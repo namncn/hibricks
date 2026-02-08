@@ -10,7 +10,7 @@ class Team extends \Bricks\Element {
 	/**
 	 * How to create your own elements
 	 *
-	 * https://docs.bricksbuilder.io/article/38-create-your-own-elements
+	 * https://academy.bricksbuilder.io/article/create-your-own-elements/
 	 */
 
 	public $category     = 'hibricks';
@@ -35,6 +35,6 @@ class Team extends \Bricks\Element {
 	public function render() {
 		$settings = $this->settings;
 		?>
-		<?php
+<?php
 	}
 }
